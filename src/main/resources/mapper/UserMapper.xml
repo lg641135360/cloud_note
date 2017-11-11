@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- UserMapper.xml 在pojo 包中  -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace 的值是 UserMapper 接口
+  每个Mapper 接口对应一个配置文件  -->
+<mapper namespace="com.lg.cloud_note.dao.UserDao">
+    <select id="findByName" parameterType="string" resultType="com.lg.cloud_note.pojo.User">
+        select *
+        from cn_user
+        where cn_user_name = #{name}
+    </select>
+    <insert id="save" parameterType="com.lg.cloud_note.pojo.User">
+        insert into cn_user(
+            cn_user_id,
+            cn_user_name,
+            cn_user_password,
+            cn_user_nick,
+            cn_user_token
+        )
+        values(
+            #{cn_user_id},
+            #{cn_user_name},
+            #{cn_user_password},
+            #{cn_user_nick},
+            #{cn_user_token}
+        )
+    </insert>
+</mapper>
+
+
+
+
+
+
+

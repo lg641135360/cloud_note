@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- UserMapper.xml 在pojo 包中  -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace 的值是 UserMapper 接口
+  每个Mapper 接口对应一个配置文件  -->
+<mapper namespace="com.lg.cloud_note.dao.NoteDao">
+    <select id="findByBookId" parameterType="string" resultType="com.lg.cloud_note.pojo.Note">
+        select *
+        from cn_note
+        where cn_noteBook_id = #{bookId}
+        and cn_note_status_id = '1'
+    </select>
+    <select id="findByNoteId" parameterType="string" resultType="com.lg.cloud_note.pojo.Note">
+        select *
+        from cn_note
+        where cn_note_id = #{noteId}
+        and cn_note_status_id = '1'
+    </select>
+    <update id="updateNote" parameterType="com.lg.cloud_note.pojo.Note">
+        update cn_note
+        set cn_note_title = #{cn_note_title},
+            cn_note_body = #{cn_note_body}
+        where cn_note_id = #{cn_note_id}
+    </update>
+    <insert id="save" parameterType="com.lg.cloud_note.pojo.Note">
+        insert into cn_note(
+            cn_note_id,
+            cn_notebook_id,
+            cn_user_id,
+            cn_note_status_id,
+            cn_note_type_id,
+            cn_note_title,
+            cn_note_body,
+            cn_note_create_time,
+            cn_note_last_modify_time
+        ) values(
+            #{cn_note_id},
+            #{cn_notebook_id},
+            #{cn_user_id},
+            #{cn_note_status_id},
+            #{cn_note_type_id},
+            #{cn_note_title},
+            #{cn_note_body},
+            #{cn_note_create_time},
+            #{cn_note_last_modify_time}
+        )
+    </insert>
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- UserMapper.xml 在pojo 包中  -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace 的值是 UserMapper 接口
+  每个Mapper 接口对应一个配置文件  -->
+<mapper namespace="com.lg.cloud_note.dao.BookDao">
+    <select id="findByUserId" parameterType="string" resultType="com.lg.cloud_note.pojo.Book">
+        select *
+        from cn_notebook
+        where cn_user_id = #{userId}
+        order by cn_notebook_createtime desc
+    </select>
+    <insert id="save" parameterType="com.lg.cloud_note.pojo.Book">
+        insert into cn_notebook(
+            cn_notebook_id,
+            cn_user_id,
+            cn_notebook_name,
+            cn_notebook_createtime
+        )
+        values(
+          #{cn_notebook_id},
+          #{cn_user_id},
+          #{cn_notebook_name},
+          now()
+        )
+    </insert>
+    <select id="findByUserIdBookName" parameterType="Map" resultType="com.lg.cloud_note.pojo.Book">
+        select *
+        from cn_notebook
+        where cn_user_id=#{userId}
+        and cn_notebook_name=#{bookName}
+    </select>
+</mapper>
+
+
+
+
+
+
+
