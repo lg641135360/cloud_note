@@ -5,6 +5,7 @@ import com.lg.cloud_note.pojo.User;
 import com.lg.cloud_note.util.NoteResult;
 import com.lg.cloud_note.util.NoteUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
  * Create by MIO on 2017/11/04 11:46
  */
 @Service("userService")   //扫描的spring容器
+@Transactional
 public class UserServiceImpl implements UserService{
 
     @Resource(name = "userDao")

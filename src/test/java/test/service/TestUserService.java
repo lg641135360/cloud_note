@@ -18,7 +18,8 @@ public class TestUserService {
     @Before
     public void init(){
         String[] conf = {"conf/spring-mybatis.xml",
-                        "conf/spring-mvc.xml"};
+                        "conf/spring-mvc.xml",
+                        "conf/spring-transaction.xml"};
         ApplicationContext ac =
                 new ClassPathXmlApplicationContext(conf);
         service = ac.getBean("userService",UserService.class);
@@ -26,6 +27,7 @@ public class TestUserService {
 
     @Test  //用例-1：预期结果：用户名不存在
     public void test1(){
+        System.out.println(service.getClass().getName());
         NoteResult<User> result = service.checkLogin("123", "11");
         System.out.println(result.getMsg());
     }

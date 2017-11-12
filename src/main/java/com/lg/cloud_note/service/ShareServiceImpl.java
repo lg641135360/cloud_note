@@ -34,6 +34,10 @@ public class ShareServiceImpl implements ShareService{
         share.setCn_share_title(note.getCn_note_title());
         share.setCn_share_body(note.getCn_note_body());
         shareDao.save(share);
+        //模拟异常
+//        String str = null;
+//        str.length();
+
         NoteResult<Object> result = new NoteResult<Object>();
         result.setStatus(0);
         result.setMsg("分享笔记成功");

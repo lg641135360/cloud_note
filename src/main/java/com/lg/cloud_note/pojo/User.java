@@ -1,6 +1,7 @@
 package com.lg.cloud_note.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Create by MIO on 2017/11/04 11:17
@@ -15,6 +16,8 @@ public class User implements Serializable{
     private String cn_user_token;
     private String cn_user_nick;
 
+    private List<Book> books;
+
     @Override
     public String toString() {
         return "User{" +
@@ -23,7 +26,16 @@ public class User implements Serializable{
                 ", cn_user_password='" + cn_user_password + '\'' +
                 ", cn_user_token='" + cn_user_token + '\'' +
                 ", cn_user_nick='" + cn_user_nick + '\'' +
+                ", books=" + books +
                 '}';
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public String getCn_user_id() {

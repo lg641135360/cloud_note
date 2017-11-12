@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- UserMapper.xml 在pojo 包中  -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace 的值是 UserMapper 接口
+  每个Mapper 接口对应一个配置文件  -->
+<mapper namespace="com.lg.cloud_note.dao.RelationDao">
+    <!-- 使用两条sql语句加载数据 -->
+    <select id="findUserAndBooks" parameterType="string" resultMap="userMap1">
+        select * from cn_user
+        where cn_user_id = #{id}
+    </select>
+    <resultMap id="userMap1" type="com.lg.cloud_note.pojo.User">
+        <id property="cn_user_id" column="cn_user_id"/>
+        <result property="cn_user_name" column="cn_user_name"/>
+        <!-- 指定books属性是一个List集合，泛型为Book -->
+        <!-- javaType是返回类型 -->
+        <collection property="books"
+                    javaType="java.util.List"
+                    ofType="com.lg.cloud_note.pojo.Book"
+                    select="findBooks"
+                    column="cn_user_id">
+        </collection>
+    </resultMap>
+    <select id="findBooks" parameterType="string" resultType="com.lg.cloud_note.pojo.Book">
+        select *
+        from cn_notebook
+        where cn_user_id = #{userId}
+    </select>
+
+    <!-- 一条sql加载User -->
+    <select id="findUserAndBooks1" parameterType="string" resultMap="userMap2">
+        select *
+        from cn_user u
+        join cn_notebook b
+        on(u.cn_user_id = b.cn_user_id)
+        where u.cn_user_id = #{userId}
+    </select>
+    <resultMap id="userMap2" type="com.lg.cloud_note.pojo.User">
+        <!-- 定义cn_user字段装载，不能省略 -->
+        <id property="cn_user_id" column="cn_user_id"/>
+        <result property="cn_user_name" column="cn_user_name"/>
+        <result property="cn_user_password" column="cn_user_password"/>
+        <result property="cn_user_token" column="cn_user_token"/>
+        <result property="cn_user_nick" column="cn_user_nick"/>
+        <collection property="books"
+                    javaType="java.util.List"
+                    ofType="com.lg.cloud_note.pojo.Book">
+            <id property="cn_notebook_id" column="cn_notebook_id"/>
+            <result property="cn_user_id" column="cn_user_id"/>
+            <result property="cn_notebook_type_id" column="cn_notebook_type_id"/>
+            <result property="cn_notebook_name" column="cn_notebook_name"/>
+            <result property="cn_notebook_desc" column="cn_notebook_desc"/>
+            <result property="cn_notebook_createtime" column="cn_notebook_createtime"/>
+        </collection>
+    </resultMap>
+</mapper>

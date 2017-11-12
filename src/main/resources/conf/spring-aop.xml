@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="loggerBean" class="com.lg.cloud_note.aspect.LoggerBean"/>
     <aop:config>
         <!-- 通过REF关联组件类 -->
         <aop:aspect ref="loggerBean">
             <!-- 通过method指定处理方法 -->
-            <aop:before method="logController" pointcut="within(com.lg.cloud_note.controller..*)"/>
+            <!-- 方法限定类型 -->
+            <!--<aop:before method="logController" pointcut="execution(* com.lg.cloud_note.controller.*.*(..))"/>-->
+            <!-- bean名称限定类型 -->
+            <aop:before method="logController" pointcut="bean(userLoginController)"></aop:before>
         </aop:aspect>
     </aop:config>
+    <!-- 配置AOP注解扫描 -->
+    <context:component-scan base-package="com.lg.cloud_note.aspect"/>
+    <!-- 开启注解标记 -->
+    <aop:aspectj-autoproxy/>
 </beans>
